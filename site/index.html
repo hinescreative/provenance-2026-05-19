@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<!--
+ ============================================================
+  Provenance Investigation — 2026-05-19
+  Fleet Rebuild capstone artifact, TEAM 1 build
+ ============================================================
+
+  type: capstone-page
+  status: PROPOSED
+  date: 2026-05-19
+  session_id: b760fdc9-2bcf-4688-84b9-a705839a7b20
+  session_lineage: branched-from 414ac530-3856-4ea9-8e05-d2e3e9fb80ea
+  session_alias: future-vault-state-clone
+  peer_team: TEAM 1 (peer za4obbdq / 414ac530 + this clone)
+  authored_by: claude-opus-4.7-mac-future-vault-state-clone
+  machine: mac
+  last_touched: 2026-05-19T08:11:30Z
+  companion_to:
+    - /Users/wesleyhines/Work/active-projects/fleet-rebuild-2026-05/research/provenance-2026-05-19/git-trailer-audit.md
+    - /Users/wesleyhines/Work/active-projects/fleet-rebuild-2026-05/research/provenance-2026-05-19/frontmatter-coverage-audit.md
+    - /Users/wesleyhines/Work/active-projects/fleet-rebuild-2026-05/research/provenance-2026-05-19/page-data-summaries.md
+  purpose: render the provenance bug + proposed fix + tonight's in-vivo demo as a single static page
+  deploy_target: provenance.hinescreative.xyz (CF Worker static-assets, custom domain in hinescreative.xyz zone)
+
+  NOTE: this HTML comment block IS this file's frontmatter. The unified
+  schema proposed in frontmatter-coverage-audit.md §4 doesn't have an HTML
+  variant defined yet — using an HTML comment with the same field semantics
+  is the obvious adaptation. PROPOSED for ratification alongside the
+  markdown schema.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Provenance Investigation · 2026-05-19 · Fleet Rebuild</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --light: #faf8f8;
+    --lightgray: #e5e5e5;
+    --gray: #b8b8b8;
+    --darkgray: #4e4e4e;
+    --dark: #2b2b2b;
+    --secondary: #284b63;
+    --tertiary: #84a59d;
+    --highlight: rgba(143, 159, 169, 0.15);
+    --text-highlight: #fff23688;
+    --accent-red: #c4584c;
+
+    --font-header: "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
+    --font-body: "Source Sans 3", "Source Sans Pro", system-ui, -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+
+    --w-content: 980px;
+    --w-narrow: 720px;
+    --r-card: 8px;
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1.25rem;
+    --space-lg: 2rem;
+    --space-xl: 3.5rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --light: #161618;
+      --lightgray: #393639;
+      --gray: #646464;
+      --darkgray: #d4d4d4;
+      --dark: #ebebec;
+      --secondary: #7b97aa;
+      --tertiary: #84a59d;
+      --highlight: rgba(143, 159, 169, 0.15);
+      --text-highlight: #b3aa0288;
+      --accent-red: #e07b6f;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--light);
+    color: var(--dark);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .wrap {
+    max-width: var(--w-content);
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  /* ---------- header ---------- */
+
+  header.page-head {
+    border-bottom: 1px solid var(--lightgray);
+    padding-bottom: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin: 0 0 var(--space-sm) 0;
+  }
+
+  h1.title {
+    font-family: var(--font-header);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.1;
+    margin: 0 0 var(--space-sm) 0;
+    color: var(--dark);
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1.125rem;
+    color: var(--darkgray);
+    margin: 0 0 var(--space-md) 0;
+    max-width: var(--w-narrow);
+  }
+
+  .build-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--darkgray);
+    margin-top: var(--space-md);
+  }
+  .build-meta dt { color: var(--gray); font-weight: 500; }
+  .build-meta dd { margin: 0; color: var(--darkgray); }
+  .build-meta .pair { display: flex; gap: 0.4rem; align-items: baseline; }
+
+  /* ---------- sections ---------- */
+
+  section {
+    margin-bottom: var(--space-xl);
+  }
+
+  h2.section-h {
+    font-family: var(--font-header);
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0 0 var(--space-md) 0;
+    color: var(--dark);
+    letter-spacing: -0.01em;
+  }
+
+  h2.section-h .num {
+    color: var(--gray);
+    font-weight: 400;
+    margin-right: 0.6rem;
+  }
+
+  h3.sub-h {
+    font-family: var(--font-header);
+    font-weight: 600;
+    font-size: 1.125rem;
+    margin: var(--space-md) 0 var(--space-sm) 0;
+    color: var(--dark);
+  }
+
+  p { margin: 0 0 var(--space-md) 0; }
+
+  code, .mono {
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+    background: var(--highlight);
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+  }
+
+  .mono-plain {
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+  }
+
+  a { color: var(--secondary); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { color: var(--accent-red); }
+
+  /* ---------- bug-frame ---------- */
+
+  .bug-frame {
+    background: var(--highlight);
+    border-left: 3px solid var(--accent-red);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: 0 var(--r-card) var(--r-card) 0;
+  }
+  .bug-frame .quote {
+    font-family: var(--font-header);
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    color: var(--dark);
+    margin: 0 0 var(--space-sm) 0;
+    letter-spacing: -0.01em;
+  }
+  .bug-frame .attrib {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--darkgray);
+  }
+  .bug-frame .sub {
+    margin-top: var(--space-md);
+    font-style: italic;
+    color: var(--darkgray);
+    font-size: 1rem;
+  }
+
+  /* ---------- hero table ---------- */
+
+  .hero-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+  .hero-table th, .hero-table td {
+    text-align: left;
+    padding: 0.7rem 0.8rem;
+    border-bottom: 1px solid var(--lightgray);
+  }
+  .hero-table thead th {
+    background: var(--highlight);
+    color: var(--darkgray);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--gray);
+  }
+  .hero-table tbody tr:hover { background: var(--highlight); }
+  .hero-table .hash { color: var(--accent-red); font-weight: 500; }
+  .hero-table .time { color: var(--secondary); }
+  .hero-table .src { color: var(--dark); }
+
+  .hero-summary {
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+    border: 1px solid var(--lightgray);
+    border-radius: var(--r-card);
+    background: var(--light);
+    font-size: 0.95rem;
+  }
+  .hero-summary strong { color: var(--accent-red); font-weight: 600; }
+
+  /* ---------- two-column ---------- */
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+  @media (max-width: 760px) {
+    .two-col { grid-template-columns: 1fr; gap: var(--space-md); }
+  }
+
+  .audit-card {
+    border: 1px solid var(--lightgray);
+    border-radius: var(--r-card);
+    padding: var(--space-md);
+    background: var(--light);
+  }
+  .audit-card .audit-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    margin: 0 0 var(--space-xs) 0;
+  }
+  .audit-card h3 {
+    font-family: var(--font-header);
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin: 0 0 var(--space-md) 0;
+    color: var(--dark);
+  }
+  .audit-card ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+  .audit-card li {
+    margin-bottom: var(--space-sm);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .audit-card li:last-child { margin-bottom: 0; }
+  .audit-card li strong { color: var(--accent-red); font-weight: 600; }
+
+  /* ---------- pullquote ---------- */
+
+  .pullquote {
+    text-align: center;
+    padding: var(--space-xl) var(--space-md);
+    background: linear-gradient(180deg, transparent, var(--highlight), transparent);
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+  }
+  .pullquote .pq-text {
+    font-family: var(--font-header);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    line-height: 1.3;
+    max-width: var(--w-narrow);
+    margin: 0 auto var(--space-md) auto;
+    letter-spacing: -0.01em;
+    color: var(--dark);
+  }
+  .pullquote .pq-text em { color: var(--accent-red); font-style: normal; }
+  .pullquote .pq-list {
+    max-width: var(--w-narrow);
+    margin: 0 auto;
+    font-size: 0.9375rem;
+    color: var(--darkgray);
+    text-align: left;
+    padding-left: 1.25rem;
+  }
+  .pullquote .pq-list li { margin-bottom: var(--space-xs); }
+
+  /* ---------- loop-closing card ---------- */
+
+  .loop-card {
+    border: 2px solid var(--secondary);
+    border-radius: var(--r-card);
+    padding: var(--space-lg);
+    background: var(--light);
+  }
+  .loop-card .loop-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    font-weight: 600;
+  }
+  .loop-card h3 {
+    font-family: var(--font-header);
+    font-weight: 700;
+    font-size: 1.375rem;
+    margin: var(--space-xs) 0 var(--space-md) 0;
+    color: var(--dark);
+  }
+  .timeline-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 2px solid var(--lightgray);
+    margin-left: 0.5rem;
+  }
+  .timeline-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: var(--space-md);
+  }
+  .timeline-list li:last-child { margin-bottom: 0; }
+  .timeline-list li::before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 0.45rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--secondary);
+    border: 2px solid var(--light);
+  }
+  .timeline-list li:last-child::before { background: var(--accent-red); }
+  .timeline-list .ts {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--secondary);
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+  .timeline-list .what {
+    font-size: 0.9375rem;
+    color: var(--dark);
+  }
+  .loop-card .stamp {
+    margin-top: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--accent-red);
+    font-weight: 600;
+  }
+
+  /* ---------- gates ---------- */
+
+  .gates {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: gate;
+  }
+  .gates li {
+    counter-increment: gate;
+    border: 1px solid var(--lightgray);
+    border-radius: var(--r-card);
+    padding: var(--space-md);
+    margin-bottom: var(--space-sm);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-md);
+    align-items: baseline;
+  }
+  .gates li::before {
+    content: "G" counter(gate);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--gray);
+    background: var(--highlight);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 600;
+    align-self: start;
+  }
+  .gates li p { margin: 0; font-size: 0.95rem; }
+  .gates li p strong { color: var(--dark); font-weight: 600; }
+
+  /* ---------- sources ---------- */
+
+  details.sources {
+    border: 1px solid var(--lightgray);
+    border-radius: var(--r-card);
+    padding: 0;
+    background: var(--light);
+  }
+  details.sources > summary {
+    cursor: pointer;
+    padding: var(--space-md);
+    font-family: var(--font-header);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    color: var(--dark);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  details.sources > summary::-webkit-details-marker { display: none; }
+  details.sources > summary::after {
+    content: "+";
+    font-family: var(--font-mono);
+    color: var(--gray);
+    font-size: 1.25rem;
+  }
+  details.sources[open] > summary::after { content: "−"; }
+  details.sources > summary:hover { background: var(--highlight); }
+  details.sources .src-body {
+    padding: 0 var(--space-md) var(--space-md) var(--space-md);
+    border-top: 1px solid var(--lightgray);
+  }
+  details.sources h4 {
+    font-family: var(--font-header);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--darkgray);
+    margin: var(--space-md) 0 var(--space-xs) 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  details.sources ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.7;
+  }
+  details.sources ul li { padding: 0.1rem 0; color: var(--darkgray); }
+  details.sources ul li code { background: transparent; padding: 0; color: var(--secondary); }
+
+  /* ---------- footer ---------- */
+
+  footer.page-foot {
+    border-top: 1px solid var(--lightgray);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  footer.page-foot .foot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+  }
+  footer.page-foot strong {
+    display: block;
+    color: var(--darkgray);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.6875rem;
+  }
+
+  /* ---------- selection / focus ---------- */
+
+  ::selection { background: var(--text-highlight); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="page-head">
+    <p class="eyebrow">Fleet Rebuild · Capstone Investigation</p>
+    <h1 class="title">The Provenance Bug</h1>
+    <p class="subtitle">A three-day demonstration that "who did that?" is not answerable from <span class="mono-plain">git log</span> alone — and a proposal for what to do about it.</p>
+    <dl class="build-meta">
+      <div class="pair"><dt>Date</dt><dd>2026-05-19 03:11 CDT</dd></div>
+      <div class="pair"><dt>Session</dt><dd>b760fdc9 · mac</dd></div>
+      <div class="pair"><dt>Team</dt><dd>TEAM 1 · 414ac530 + b760fdc9</dd></div>
+      <div class="pair"><dt>Status</dt><dd style="color: var(--accent-red);">PROPOSED · not ratified</dd></div>
+    </dl>
+  </header>
+
+  <!-- ========== Section 1 — The bug frame ========== -->
+  <section id="bug">
+    <h2 class="section-h"><span class="num">01</span>The Bug</h2>
+    <div class="bug-frame">
+      <p class="quote">"No Claude session UUID stamped on git commits → who did that?"</p>
+      <p class="attrib">— Wes Hines, 2026-05-19 02:33 CDT</p>
+      <p class="sub">Provenance exists in narrative prose. It does not exist in structured, greppable form. The 3-day demonstration of this bug is itself the evidence.</p>
+    </div>
+  </section>
+
+  <!-- ========== Section 2 — Hero evidence ========== -->
+  <section id="hero">
+    <h2 class="section-h"><span class="num">02</span>The Live Evidence</h2>
+    <p>The Monday 10:04 → 10:08 commit burst. Four commits, four minutes, one git actor (<code>hinescreative</code>) — and <strong>four different source sessions</strong> behind them.</p>
+    <table class="hero-table" aria-label="Monday 2026-05-18 commit burst">
+      <thead>
+        <tr>
+          <th>Commit</th>
+          <th>Wall time</th>
+          <th>Body claims work came from</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hash">f4e3768</td>
+          <td class="time">10:04</td>
+          <td class="src">"future-vault session" (<span class="mono-plain">414ac530</span>)</td>
+        </tr>
+        <tr>
+          <td class="hash">26af83b</td>
+          <td class="time">10:05</td>
+          <td class="src">"sourced from transcript <span class="mono-plain">414ac530</span>"</td>
+        </tr>
+        <tr>
+          <td class="hash">4ca8e17</td>
+          <td class="time">10:06</td>
+          <td class="src">"branched session <span class="mono-plain">zrx6u1tr</span> coordinating with peers <span class="mono-plain">enrfiezk</span> + <span class="mono-plain">6966fvzc</span>"</td>
+        </tr>
+        <tr>
+          <td class="hash">56c52f3</td>
+          <td class="time">10:08</td>
+          <td class="src">"this session's own audit + pre-mortem + telegram synthesis" <em style="color: var(--gray);">(vague — no UUID)</em></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="hero-summary">
+      <strong>From git log alone, you cannot tell which work came from which session.</strong> The Co-Authored-By trailer says only that it was Claude Opus 4.7 — not which session, which variant, or which machine. That is the bug, one screenshot away from obvious.
+    </div>
+  </section>
+
+  <!-- ========== Section 3 + 4 — Two-column audit findings ========== -->
+  <section id="audits">
+    <h2 class="section-h"><span class="num">03</span>The Audits</h2>
+    <div class="two-col">
+
+      <div class="audit-card">
+        <p class="audit-tag">Task A · Git Trailers</p>
+        <h3>Zero structured provenance, twelve commits</h3>
+        <ul>
+          <li><strong>12 commits</strong> since 2026-05-15. 100% authored by <code>hinescreative</code>. Single trailer: <code>Co-Authored-By</code>. Zero session/machine/variant fields.</li>
+          <li>Multi-session signals exist <strong>only in commit-body prose</strong> — UUIDs, peer IDs, variant names. Not greppable, not structured.</li>
+          <li><strong>Seven distinct durable sessions</strong> contributed to those 12 commits. None visible from git alone.</li>
+          <li>Proposed <strong>6-field trailer block</strong>: <code>Session-Id</code>, <code>Session-Lineage</code>, <code>Machine</code>, <code>Variant</code>, <code>Peer-Id</code>, <code>Authored-At</code>. Order matters; <code>git interpret-trailers</code> compatible.</li>
+          <li>Companion machinery: <code>SessionStart</code> hook caches state; <code>commit-msg</code> hook resolves durable-vs-shim UUID per doc 17 §1; stretch <code>pre-commit</code> hook WARN-only on missing <code>last_touched_by</code>.</li>
+        </ul>
+      </div>
+
+      <div class="audit-card">
+        <p class="audit-tag">Task B · Frontmatter</p>
+        <h3>The convention nothing follows</h3>
+        <ul>
+          <li>Doc 12 specifies <code>last_touched_by</code> + <code>last_touched</code>. Applied to <strong>0 of 17 docs/</strong> files, including doc 12 itself. Top irony.</li>
+          <li><strong>Three competing pre-existing vocabularies</strong> emerged independently: <code>metadata.originSessionId</code> (memory), <code>transcript:</code> + <code>read_by:</code> (archaeology), <code>session_origin:</code> (doc 16 only).</li>
+          <li>Coverage scoreboard: 8 files with <code>originSessionId</code>, 5 with <code>transcript:</code>, 1 with <code>session_origin:</code>. Everything else: empty <code>---</code> blocks or no frontmatter at all.</li>
+          <li>Proposed <strong>unified schema</strong> (additive, not replacive): 7 required fields + 7 optional fields. Memory + archaeology shapes survive intact alongside.</li>
+          <li><strong>P0 backfill = 6 docs</strong> (12, 13, 14, 15, 16, 17). Flagged: convention may have only ever meant project-root READMEs, not every doc — needs Wes input before backfill.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== Section 5 — Meta-finding pullquote ========== -->
+  <section id="meta" class="pullquote">
+    <p class="pq-text">The fix isn't <em>inventing</em> a convention.<br>It's <em>choosing</em> which existing one to canonize.</p>
+    <ul class="pq-list">
+      <li><code>metadata.originSessionId</code> survived three days of multi-session pressure without drift. The project's strongest provenance pattern.</li>
+      <li><code>session_origin:</code> (doc 16) is the second-best — human-readable session aliases (<code>future-vault-state</code>) beat raw UUIDs for skimmability.</li>
+      <li><code>read_by:</code> (transcript reports) is the only field that names a model identity. Useful for audit but not durable enough alone.</li>
+      <li>A unified schema carries all three. The proposal in <code>frontmatter-coverage-audit.md §4</code> is the synthesis.</li>
+    </ul>
+  </section>
+
+  <!-- ========== Section 6 — Loops closing in vivo ========== -->
+  <section id="loop">
+    <h2 class="section-h"><span class="num">06</span>Loops Closing In Vivo</h2>
+    <p>Two pieces of the proposed solution shipped to production while this page was being researched. The convention locked at 02:33 CDT was running in Slack 37 minutes later; Wes iterated on it 60 seconds after that. The full loop — diagnosis, implementation, real-world test, refinement — compressed into 38 minutes. <strong>This section is that loop on display.</strong></p>
+    <div class="loop-card">
+      <p class="loop-tag">Tonight, 2026-05-19</p>
+      <h3>Convention: durable UUID stays present, role-name leads the daily form</h3>
+      <ol class="timeline-list">
+        <li>
+          <span class="ts">02:33 CDT · Wes</span>
+          <span class="what">Diagnosis crystallized: <em>"stamp every change with durable session UUID at the surface where it happens."</em></span>
+        </li>
+        <li>
+          <span class="ts">03:09 CDT · v1 adopted</span>
+          <span class="what">All three peers updated <code>set_summary</code> to lead with their durable UUID short-form. Rule v1: <code>&lt;uuid-short&gt; — &lt;role&gt;, &lt;context&gt;</code></span>
+        </li>
+        <li>
+          <span class="ts">03:10 CDT · v1 verified in production</span>
+          <span class="what">Slack <code>#fleet-peer-mesh</code> rendered the next cross-team message as <code>414ac530/mac → b760fdc9/mac</code>. Distinguishable and traceable — but Wes flagged the UUID-first form as not human-friendly.</span>
+        </li>
+        <li>
+          <span class="ts">03:11 CDT · Wes amended (v2)</span>
+          <span class="what">Verbatim: <em>"cant we do Future state - future state clone - fleet build - fleet build clone lol"</em>. Rule v2: role-name leads, UUID moves to body. <code>&lt;Role-Name&gt; — &lt;uuid-short&gt;, &lt;context&gt;</code></span>
+        </li>
+        <li>
+          <span class="ts">03:12 CDT · v2 adopted, both layers retained</span>
+          <span class="what">Slack renders <code>Future-state-clone/mac → Future-state/mac</code> for daily readability. UUID remains in the summary body for forensic queries. <strong>Two surfaces, one substrate.</strong></span>
+        </li>
+      </ol>
+      <p class="stamp">Δt v1 diagnosis → prod: ~37 min · Δt v1 verified → v2 amended: ~60 sec</p>
+    </div>
+  </section>
+
+  <!-- ========== Section 7 — Forward path ========== -->
+  <section id="gates">
+    <h2 class="section-h"><span class="num">07</span>Five Ratification Gates</h2>
+    <p>No automatic next step. Each gate is a discrete Riff / Ask / Plan / Work decision.</p>
+    <ol class="gates">
+      <li><p><strong>Ratify the trailer schema.</strong> <code>Session-Id</code> + 5 companion fields — or reject and counter-propose.</p></li>
+      <li><p><strong>Ratify the unified frontmatter schema</strong> in <code>frontmatter-coverage-audit.md §4</code>.</p></li>
+      <li><p><strong>Resolve §7 of Task B.</strong> Does doc 12's <code>last_touched_by:</code> apply to all <code>docs/</code> files, or only project-root READMEs?</p></li>
+      <li><p><strong>Decide hook installation strategy.</strong> Per-project <code>.git/hooks/</code> vs <code>core.hooksPath</code> global vs both.</p></li>
+      <li><p><strong>Decide enforcement posture.</strong> WARN-only forever (matches doc 12 spirit) or WARN-now-FAIL-later.</p></li>
+    </ol>
+  </section>
+
+  <!-- ========== Section 8 — Sources ========== -->
+  <section id="sources">
+    <h2 class="section-h"><span class="num">08</span>Sources</h2>
+    <details class="sources">
+      <summary>View every claim's evidence</summary>
+      <div class="src-body">
+
+        <h4>Primary audits (this session)</h4>
+        <ul>
+          <li><code>/Users/wesleyhines/Work/active-projects/fleet-rebuild-2026-05/research/provenance-2026-05-19/git-trailer-audit.md</code></li>
+          <li><code>/Users/wesleyhines/Work/active-projects/fleet-rebuild-2026-05/research/provenance-2026-05-19/frontmatter-coverage-audit.md</code></li>
+          <li><code>/Users/wesleyhines/Work/active-projects/fleet-rebuild-2026-05/research/provenance-2026-05-19/page-data-summaries.md</code></li>
+        </ul>
+
+        <h4>Convention reference</h4>
+        <ul>
+          <li><code>/Users/wesleyhines/Work/active-projects/fleet-rebuild-2026-05/docs/12-fleet-build-convention-2026-05-14.md</code></li>
+        </ul>
+
+        <h4>Harness facts reference</h4>
+        <ul>
+          <li><code>/Users/wesleyhines/Work/active-projects/fleet-rebuild-2026-05/docs/17-session-mobility-and-harness-facts-2026-05-15.md</code></li>
+        </ul>
+
+        <h4>Multi-session evidence (the seven contributing sessions)</h4>
+        <ul>
+          <li><code>/Users/wesleyhines/Work/active-projects/fleet-rebuild-2026-05/research/transcript-archaeology-2026-05-19/SYNTHESIS.md</code></li>
+          <li><code>research/transcript-archaeology-2026-05-19/2c324612-report.md</code> · founding session</li>
+          <li><code>research/transcript-archaeology-2026-05-19/3cbd63bb-report.md</code> · day 2</li>
+          <li><code>research/transcript-archaeology-2026-05-19/237e0c0d-report.md</code> · day 3 (halt + CF-OS)</li>
+          <li><code>research/transcript-archaeology-2026-05-19/414ac530-report.md</code> · future-vault-state</li>
+          <li><code>research/transcript-archaeology-2026-05-19/d3fa4929-report.md</code> · telegram parent</li>
+          <li><code>research/transcript-archaeology-2026-05-19/e05f620b-report.md</code> · zrx6u1tr (branched)</li>
+        </ul>
+
+        <h4>Git evidence</h4>
+        <ul>
+          <li><code>git log -30 --pretty=fuller</code> · cited verbatim in <code>git-trailer-audit.md §1</code></li>
+          <li><code>git log --since=2026-05-15 --oneline</code> · 12 commits, all enumerated in <code>git-trailer-audit.md §8</code></li>
+        </ul>
+
+        <h4>Peer-mesh participants (tonight, in-flight)</h4>
+        <ul>
+          <li>TEAM 1 lead · peer <code>za4obbdq</code> · durable <code>414ac530-3856-4ea9-8e05-d2e3e9fb80ea</code></li>
+          <li>TEAM 1 clone · this session · durable <code>b760fdc9-2bcf-4688-84b9-a705839a7b20</code></li>
+          <li>TEAM 2 lead · peer <code>d3fa4929</code> · durable <code>d3fa4929-b0b8-4a7d-a851-989a5be3d789</code></li>
+          <li>TEAM 2 clone · UUID TBD</li>
+        </ul>
+
+      </div>
+    </details>
+  </section>
+
+  <footer class="page-foot">
+    <div class="foot-grid">
+      <div>
+        <strong>Authored</strong>
+        <span>future-vault-state-clone</span><br>
+        <span>b760fdc9 · mac</span>
+      </div>
+      <div>
+        <strong>Lineage</strong>
+        <span>branched-from 414ac530</span><br>
+        <span>2026-05-19 02:01 CDT</span>
+      </div>
+      <div>
+        <strong>Deployed by</strong>
+        <span>peer za4obbdq</span><br>
+        <span>414ac530 · mac</span>
+      </div>
+      <div>
+        <strong>Page status</strong>
+        <span>PROPOSED · not ratified</span><br>
+        <span>last touched 08:11 UTC</span>
+      </div>
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>
