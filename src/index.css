@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --color-light: #faf8f8;
+  --color-lightgray: #e5e5e5;
+  --color-gray: #b8b8b8;
+  --color-darkgray: #4e4e4e;
+  --color-dark: #2b2b2b;
+  --color-secondary: #284b63;
+  --color-tertiary: #84a59d;
+  --color-accent: #c4584c;
+  --color-highlight: rgba(143, 159, 169, 0.15);
+
+  --font-header: "Schibsted Grotesk", system-ui, sans-serif;
+  --font-body: "Source Sans 3", "Source Sans Pro", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-light: #161618;
+    --color-lightgray: #393639;
+    --color-gray: #646464;
+    --color-darkgray: #d4d4d4;
+    --color-dark: #ebebec;
+    --color-secondary: #7b97aa;
+    --color-tertiary: #84a59d;
+    --color-accent: #e07b6f;
+  }
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-light);
+  color: var(--color-dark);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* { box-sizing: border-box; }
+
+::selection { background: var(--color-highlight); }
+
+.font-header { font-family: var(--font-header); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Flip card 3D plumbing — Tailwind v4 doesn't ship preserve-3d utilities yet */
+.flip-perspective { perspective: 1200px; }
+.flip-preserve { transform-style: preserve-3d; }
+.flip-back { transform: rotateY(180deg); }
+.flip-hide-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
