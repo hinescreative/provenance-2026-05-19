@@ -104,3 +104,20 @@ bun --hot ./index.ts
 ```
 
 For more information, read the Bun API docs in `node_modules/bun-types/docs/**.mdx`.
+
+## Canonical URLs
+
+> [!IMPORTANT]
+> Anchored here to prevent the "naming-drift" anti-pattern that hit TEAM 1 twice on 2026-05-19. Transient peer messages cannot carry canonical state across coordination rounds — it has to live in a re-readable place. Same shape as Doc 19 (provenance-everywhere) applied to URLs.
+
+- **Production:**     `https://provenance-2026-05-19.pages.dev`
+- **/audit route:**   `https://provenance-2026-05-19.pages.dev/audit` (Tuesday-morning forensic page)
+- **Source repo:**    `https://github.com/hinescreative/provenance-2026-05-19`
+- **DO NOT USE:**     `provenance.hinescreative.xyz` or any `*.hinescreative.xyz` subdomain — Wes's agency domain, off-limits to v0/experimental builds. Both TEAM 1 sessions drifted to this incorrect URL repeatedly because nothing structural anchored the correct one.
+
+## Build / deploy
+
+- `bun run dev` — local dev server (HMR via Bun.serve)
+- `bun run build` — produces canonical `dist/` (React at `/`, static forensic page copied to `dist/audit/index.html`)
+- CF Pages config: `build_command = "bun run build"`, `destination_dir = "dist"`, production branch `main`
+- Deploy on push to `main` (GH-connected CF Pages workflow)
